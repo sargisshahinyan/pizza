@@ -43,6 +43,10 @@ router.get('/menu-single', function(req, res) {
 	res.render('menu-single');
 });
 
+router.get('/menu-single/:id', function(req, res) {
+	res.render('menu-single');
+});
+
 router.get('/menu-classic', function(req, res) {
 	res.render('menu-classic');
 });

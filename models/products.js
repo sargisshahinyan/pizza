@@ -79,11 +79,14 @@ class Products {
 		return new Promise((resolve, reject) => {
 			conn.query(`SELECT
 						${table}.id, ${table}.name, categoryId,
-						description, image, categories.name as categoryName
+						description, ${table}.image, categories.name as categoryName
 						FROM ${table} JOIN categories
 						ON ${table}.categoryId = categories.id
 						ORDER BY categoryId LIMIT ?, ?`, [options['skip'], options['limit']], (err, rows) => {
-				if(err) reject(err);
+				if(err) {
+					reject(err);
+					return;
+				}
 				if(!rows.length) {
 					resolve([]);
 					return;
@@ -108,7 +111,7 @@ class Products {
 		return new Promise((resolve, reject) => {
 			conn.query(`SELECT
 						${table}.id, ${table}.name, categoryId,
-						description, image, categories.name as categoryName
+						description, ${table}.image, categories.name as categoryName
 						FROM ${table} JOIN categories
 						ON ${table}.categoryId = categories.id WHERE ${table}.id = ?`, [id], (err, rows) => {
 				if(err) {

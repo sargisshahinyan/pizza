@@ -58,12 +58,18 @@ setTimeout(function f() {
 	function renderAdds(additions) {
 		additions.forEach(add => {
 			let element = '';
+			const quantity = parseInt(add.quantity, 10);
+			const $tab = $(`#tab-${add.id}`);
 			
 			if(typeof add.children === 'object') {
 				element = renderChildren(add.children);
 			}
 			
-			$(`#tab-${add.id}`).append(element).data('quantity', parseInt(add.quantity) || Infinity);
+			if(quantity && add.children[4]) {
+				$tab.append(`<h6>Select up to ${quantity}.</h6>`);
+			}
+			
+			$tab.append(element).data('quantity', quantity || Infinity);
 			
 			function renderChildren(children, parentId, selected) {
 				let result = '';
