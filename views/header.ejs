@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" class="wide wow-animation smoothscroll">
+<head>
+    <!-- Site Title-->
+    <title>Home</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    <!-- Stylesheets-->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Changa+One:400,400i%7CGrand+Hotel%7CLato:300,400,400italic,700">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Cookies -->
+    <script src="/js/libs/cookies.js"></script>
+
+    <!-- Paypal -->
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+</head>
+<body>
+<div class="page">
+    <div class="page-loader">
+        <div class="page-loader-body">
+            <div class="cssload-container">
+                <div class="cssload-speeding-wheel"></div>
+            </div>
+            <p>Loading...</p>
+        </div>
+    </div>
+</div>
+<!-- Page-->
+<div class="page text-center">
+    <!-- Page Header-->
+    <header class="page-head">
+        <!-- RD Navbar-->
+        <div class="rd-navbar-wrap rd-navbar-minimal">
+            <nav data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static" data-stick-up-clone="false" data-md-stick-up-offset="100px" data-lg-stick-up-offset="100px" class="rd-navbar">
+                <div class="shell shell-fluid">
+                    <div class="rd-navbar-inner">
+                        <!-- RD Navbar Panel-->
+                        <div class="rd-navbar-panel">
+                            <!-- RD Navbar Toggle-->
+                            <button data-rd-navbar-toggle=".rd-navbar-nav-wrap" class="rd-navbar-toggle"><span></span></button>
+                            <!-- RD Navbar Brand--><a href="/" class="rd-navbar-brand brand">
+                                <div class="brand-logo">
+                                    <img src="/img/logo.png">
+                                </div></a>
+                        </div>
+                        <!-- RD Navbar Nav-->
+                        <div class="rd-navbar-nav-wrap">
+                            <!-- RD Navbar Nav-->
+                            <!-- RD Navbar Nav-->
+                            <ul class="rd-navbar-nav">
+                                <li><a href="#" class="navbar-icon restaurant-icon-19">Menu</a>
+                                    <!-- RD Navbar Dropdown-->
+                                    <ul class="rd-navbar-dropdown menu-img-wrap">
+                                        <li class="menu-img"><a href="/menu-single"><img src="/images/menu-food-01.png" alt="" width="88" height="60"><span>Pizzas</span></a></li>
+                                        <li class="menu-img"><a href="/menu-single"><img src="/images/menu-food-02.png" alt="" width="88" height="60"><span>Burgers</span></a></li>
+                                        <li class="menu-img"><a href="/menu-single"><img src="/images/menu-food-03.png" alt="" width="88" height="60"><span>Drinks</span></a></li>
+                                        <li class="menu-img"><a href="/menu-single"><img src="/images/menu-food-04.png" alt="" width="88" height="60"><span>Tosts</span></a></li>
+                                        <li class="menu-img"><a href="/menu-single"><img src="/images/menu-food-05.png" alt="" width="88" height="60"><span>Salads</span></a></li>
+                                        <li class="menu-img"><a href="/menu-single"><img src="/images/menu-food-06.png" alt="" width="88" height="60"><span>desserts</span></a></li>
+                                        <li class="menu-img"><a href="/menu-single"><img src="/img/appetizers.png" alt="" width="88" height="60"><span style="margin-right: -10px;">Appetizers</span></a></li>
+                                        <li class="menu-img"><a href="/menu-single"><img src="/img/pasta.png" alt="" width="88" height="60"><span>Pasta</span></a></li>
+                                        <li class="menu-img"><a href="/menu-single"><img src="/img/ajarski.png" alt="" width="88" height="60"><span>Ajarski</span></a></li>
+                                        <li class="menu-img"><a href="/menu-single"><img src="/img/spec.png" alt="" width="88" height="60"><span>Specials</span></a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="/contact" class="navbar-icon thin-icon-map-marker">Contacts</a></li>
+                            </ul>
+
+                            <!-- RD Navbar Shop-->
+                            <ul class="rd-navbar-shop list-inline">
+                                <li>
+                                    <a href="tel:+1 (508) 881-2431" class="unit unit-horizontal unit-middle unit-spacing-xxs link-default">
+                                        <div class="unit-left"><span class="icon icon-md icon-primary thin-icon-phone-call text-middle"></span></div>
+                                        <div class="unit-body">
+                                            <address class="contact-info"><span class="text-bold big">+1 (508) 881-2431</span></address>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/cart" class="unit unit-horizontal unit-middle unit-spacing-xxs link-gray-light">
+                                        <div class="unit-left"><span class="icon icon-md icon-primary thin-icon-cart"></span></div>
+                                        <div class="unit-body"><span id="basket-size" class="label-inline big cart-length"><%= basket %></span></div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>

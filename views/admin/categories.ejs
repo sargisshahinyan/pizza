@@ -1,0 +1,38 @@
+<% include header.ejs %>
+<section class=" col-xs-11 col-sm-10">
+    <article class="col-md-offset-1 col-md-10 ">
+        <div class="row">
+            <h3 class="col-md-offset-1 col-md-4">New category</h3>
+        </div>
+        <div class="row">
+            <form class="col-md-offset-1 col-md-10" action="#">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" class="form-control" name="name" placeholder="Name" required>
+                </div>
+                <button type="button" id="add" class="btn btn-primary">Add</button>
+            </form>
+        </div>
+        <div class="row">
+            <div class="list-group" id="categories-list">
+                <% categories.forEach((category) => { %>
+                    <span data-id="<%= category._id %>" class="list-group-item row">
+                        <span class="col-xs-8 list-item-title">
+                            <%= category.category %>
+                        </span>
+                        <span class="col-xs-4 text-right main-menu">
+                            <button class="edit btn btn-success"><span class="edit glyphicon glyphicon-pencil"></span></button>
+                            <button class="delete btn btn-danger"><span class="delete glyphicon glyphicon-remove"></span></button>
+                        </span>
+                        <span class="col-xs-4 text-right edit-menu" style="display: none">
+                            <button class="save btn btn-primary"><span class="save glyphicon glyphicon-ok"></span></button>
+                            <button class="cancel btn btn-default"><span class="cancel glyphicon glyphicon-ban-circle"></span></button>
+                        </span>
+                    </span>
+                <% }); %>
+            </div>
+        </div>
+    </article>
+</section>
+<script src="/js/admin/categories.js"></script>
+<% include footer.ejs %>

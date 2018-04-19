@@ -1,0 +1,146 @@
+<% include header.ejs %>
+<section class=" col-xs-11 col-sm-10">
+    <article class="col-md-offset-1 col-md-10 list-group">
+        <!--<%= JSON.stringify(orders, undefined, '\t') %>-->
+        <% orders.forEach(order => { %>
+        <div class="order container-fluid">
+            <article class="row title">Order N<%= order.id %></article>
+            <article class="person-details row">
+                <section>
+                    <div class="col-md-4">Name</div>
+                    <div class="col-md-8"><%= order.firstName %></div>
+                </section>
+                <section>
+                    <div class="col-md-4">Surname</div>
+                    <div class="col-md-8"><%= order.lastName %></div>
+                </section>
+                <section>
+                    <div class="col-md-4">Email</div>
+                    <div class="col-md-8"><%= order.email %></div>
+                </section>
+                <section>
+                    <div class="col-md-4">Phone</div>
+                    <div class="col-md-8"><%= order.phone %></div>
+                </section>
+                <section>
+                    <div class="col-md-4">Address</div>
+                    <div class="col-md-8"><%= order.address1 + (order.address2 ? ', ' + order.address2 : '') %></div>
+                </section>
+                <section>
+                    <div class="col-md-4">City</div>
+                    <div class="col-md-8"><%= order.city %></div>
+                </section>
+                <section>
+                    <div class="col-md-4">State</div>
+                    <div class="col-md-8"><%= order.state %></div>
+                </section>
+            </article>
+            <article class="title row">Orders List</article>
+            <% Array.isArray(order.products) && order.products.forEach((product, i) => { %>
+            <!--<div class="orderList">
+                <div class="orderListLeft">
+                    <aside>Product</aside>
+                    <div class="product">
+                        <div>Category Name</div>
+                        <div>Name</div>
+                        <div>Price</div>
+                        <div>Summary</div>
+                    </div>
+                    <div class="value">
+                        <div><%= product.categoryName %></div>
+                        <div><%= product.name %></div>
+                        <div>
+                            <%= product.total %> $
+                        </div>
+                        <div><%= product.quantity %> x <%= product.total %> = <%= product.quantity * product.total %> $</div>
+                    </div>
+                </div>
+                <div class="orderListRight">
+                    <aside>Product details</aside>
+                    <div class="details">
+                        <div class="detailsElements">
+                            <div></div>
+                            <div class="addDetail">
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                        <div class="detailsElements">
+                            <div></div>
+                            <div class="addDetail">
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                        <div class="detailsElements">
+                            <div></div>
+                            <div class="addDetail">
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                        <div class="detailsElements">
+                            <div></div>
+                            <div class="addDetail">
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="specialDetails">
+                    <div>Special Instraction</div>
+                    <div><%= product.instructions || '&#45;&#45;' %></div>
+                </div>
+            </div>-->
+            <div class="orderList">
+                <article class="row">
+                    <section class="col-md-5 orderListLeft">
+                        <div class="row text-center">Product N<%= i + 1 %></div>
+                        <div class="row">
+                            <div class="col-md-6 product">Category Name</div>
+                            <div class="col-md-6 value"><%= product.categoryName %></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 product">Name</div>
+                            <div class="col-md-6 value"><%= product.name %></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 product">Price</div>
+                            <div class="col-md-6 value"><%= product.total %> $</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 product">Summary</div>
+                            <div class="col-md-6 value"><%= product.quantity %> x <%= product.total %> = <%= product.quantity * product.total %> $</div>
+                        </div>
+                    </section>
+                    <section class="col-md-7 orderListRight">
+                        <div class="row text-center">Product details</div>
+                        <% Array.isArray(product.additions) && product.additions.forEach(function render(add) { %>
+                        <div class="row text-center orderListDetails">
+                            <!--<div class="row">-->
+                                <div class="col-md-<%= Array.isArray(add.children) ? '6' : '12'%>"><%= add.name %></div>
+                                <% if(Array.isArray(add.children)) { %>
+                                <div class="col-md-6">
+                                    <% add.children.forEach(render) %>
+                                </div>
+                                <% } %>
+                            <!--</div>-->
+                        </div>
+                        <% }) %>
+                    </section>
+                </article>
+            </div>
+            <% }); %>
+        </div>
+        <% }); %>
+    </article>
+</section>
+<script>
+    $('.col').each(function () {
+    	if(!this.innerHTML.trim()) {
+		    $(this).remove();
+        }
+    });
+</script>
+<% include footer.ejs %>

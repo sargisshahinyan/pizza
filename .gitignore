@@ -1,0 +1,7 @@
+# IDE Files
+#-------------------------
+/nbproject/
+.idea/*
+
+# Node modules
+node_modules/

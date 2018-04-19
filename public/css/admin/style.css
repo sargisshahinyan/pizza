@@ -1,0 +1,180 @@
+.list-item-title {
+    padding-top: 4px;
+}
+
+
+#adds {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#adds:empty {
+    display: none;
+}
+
+.add label{
+    width: 90%;
+    min-width: 200px;
+}
+
+#adds:after, .adds:after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+img.photo.avatar {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.order {
+    border: .5px solid #ccc;
+    min-height: 600px;
+    background: #f7f7f7;
+    margin-top: 10px;
+}
+.order article.title {
+    font-size: 1.8em;
+    text-align: center;
+    color: #7d9090;
+    padding: 5px 0;
+    border-bottom: .5px solid #ccc;
+}
+.order .person-details {
+    border-bottom: .5px solid #ccc;
+}
+.order .person-details section>:first-child {
+    text-align: right;
+    width: 30%;
+    font-size: 1.2em;
+    padding-top: 12px;
+    padding-bottom: 5px;
+    box-sizing: border-box;
+    border-right: .5px solid #ccc;
+}
+.order .person-details section>:last-child {
+    /*text-indent: 50px;*/
+    width: 65%;
+    font-size: 1.2em;
+    padding-top: 12px;
+    padding-bottom: 5px;
+}
+.order section:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+.order .orderList {
+    font-size: 1.6em;
+    color: #7d9090;
+    line-height: 40px;
+    border-bottom: .5px solid #ccc;
+}
+.order .orderList:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+.order .orderListLeft, .order .orderListRight {
+    text-align: center;
+}
+.order .orderListLeft {
+    border-right: .5px solid #ccc;
+}
+/*.order .orderListLeft > div {*/
+    /*width: 50%;*/
+    /*float: left;*/
+/*}*/
+.order .orderListLeft:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+.order .product {
+    border-right: .5px solid #ccc;
+    border-left: 0;
+    color: #000;
+    font-size: .9em;
+}
+.order .value {
+    color: darkred;
+    font-size: .8em;
+}
+.order .orderListLeft .row:nth-child(2) .product, .order .orderListLeft .row:nth-child(2) .value {
+    border-top: .5px solid #ccc;
+}
+
+.order .details {
+    height: 161px;
+    border-bottom: .5px solid #ccc;
+    border-top: .5px solid #ccc;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+.order .detailsElements {
+    flex: 1;
+    border-bottom: .5px solid #ccc;
+    display: flex;
+}
+.order .detailsElements > :first-child {
+    border-right: .5px solid #ccc;
+    flex-grow: 2;
+}
+.order .detailsElements > :last-child {
+    flex-grow: 3;
+}
+.order .details > :last-child {
+    border: 0;
+}
+.order .addDetail {
+    display: flex;
+    flex-direction: column;
+}
+.order .addDetail > div {
+    flex-grow: 1;
+    height: 20px;
+}
+.order .addDetail > * {
+    border-bottom: .5px solid #ccc;
+}
+.order .addDetail > :last-child {
+    border-bottom: none;
+}
+.order .specialDetails {
+    width: 100%;
+    min-height: 41px;
+    clear: both;
+    text-align: center;
+}
+.order .specialDetails > :first-child {
+    border-right: .5px solid #ccc;
+    float: left;
+    width: 25%;
+}
+.order .specialDetails > :last-child {
+    color: black;
+    overflow-x: auto;
+    font-size: .8em;
+}
+
+/*.order .flex {*/
+    /*display: flex;*/
+/*}*/
+/*.order .flex .col {*/
+    /*flex-direction: column;*/
+/*}*/
+
+/*.order .flex *, .order .flex .col * {*/
+    /*flex: 1;*/
+    /*text-align: center;*/
+/*}*/
+
+/*.order .flex *:not(.text), .order .flex .col *:not(.text) {*/
+    /*display: flex;*/
+/*}*/
+
+.order .orderListDetails div {
+    outline: 1px solid #ccc;
+}

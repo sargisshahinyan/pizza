@@ -1,0 +1,157 @@
+<% include header.ejs %>
+<script src="/js/product.js"></script>
+<!-- Page Content-->
+<main class="page-content">
+    <!-- Breadcrumbs & Page title-->
+    <section class="text-center section-34 section-sm-60 section-md-top-100 section-md-bottom-105 bg-image bg-image-breadcrumbs">
+        <div class="shell shell-fluid" style="visibility: hidden">
+            <div class="range range-condensed">
+                <div class="cell-xs-12 cell-xl-preffix-1 cell-xl-11">
+                    <p class="h3 text-white">Contacts</p>
+                    <ul class="breadcrumbs-custom offset-top-10">
+                        <li><a href="/">Home</a></li>
+                        <li class="active">Contacts</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-50 section-sm-100">
+        <div class="shell">
+            <div class="range range-xs-center">
+                <div class="cell-sm-6 text-lg-left">
+                    <!-- Slick Carousel-->
+                    <div class="slick-slider">
+                        <div class="item">
+                            <img src="<%= product.image %>" alt="" width="542" height="448" class="img-responsive reveal-inline-block"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="cell-sm-6 cell-lg-5 text-sm-left offset-top-60 offset-sm-top-0">
+                    <div class="reveal-xs-flex range-xs-middle range-xs-center range-sm-left">
+                        <h4 class="font-default"><%= product.name %></h4>
+                    </div>
+                    <hr class="offset-top-30 veil reveal-sm-block">
+                    <div class="offset-top-15">
+                        <span class="price">
+                            $<%= product.additions.reduce(function sum(data, item) {
+                                if(typeof item.children === 'object' && parseInt(item.selected, 10)) {
+                                    for(let type in item.children) {
+                                        if(!item.children.hasOwnProperty(type)) {
+                                            continue;
+                                        }
+
+                                        data += item.children[type].reduce(sum, 0);
+                                    }
+
+                                    return data;
+                                }
+
+                                return parseInt(item.selected, 10) ? data + parseFloat(item.price) : data;
+                            }, 0) %>+
+                        </span>
+                    </div>
+                    <div class="offset-top-45">
+                        <div class="group-sm">
+                            <a id="order-details" href="#" class="text-top btn btn-burnt-sienna btn-shape-circle" data-toggle="modal" data-target="#product-details"><span>Order Online</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="text-left">
+        <div class="responsive-tabs responsive-tabs-horizontal responsive-tabs-horizontal-background" id="tab">
+            <ul class="resp-tabs-list shell">
+                <li>Description</li>
+                <li>Delivery</li>
+            </ul>
+            <div class="resp-tabs-container">
+                <div>
+                    <p class="text-base"><%= product.description %></p>
+                    <!--<div class="unit unit-horizontal unit-spacing-xs offset-top-20">-->
+                        <!--<div class="unit-left">-->
+                            <!--<p class="h6">Ingredients:</p>-->
+                        <!--</div>-->
+                        <!--<div class="unit-body">-->
+                            <!--<p>Turkey / Alfalfa / Lettuce / Chicken Beef / Tomatoes</p>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                </div>
+                <div>
+                    <p class="text-base">Here you can read some details about a nifty little lifecycle of your order's journey from the time you place your order to your new treasures arriving at your doorstep. At first, you choose the product you like. Then you put into your shopping cart and pass the checkout process in a few clicks. Our store offers several payment and delivery methods, so after placing your order, you'll have an opportunity to choose which one is the most convenient for you.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- Details -->
+<div class="modal fade" id="product-details" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content order-details">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalLabel">Order details</h4>
+            </div>
+            <div class="modal-body">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <%
+                    if(Array.isArray(product.additions)) {
+                        product.additions.forEach((add, i) => {
+                        %>
+                        <li role="presentation" class="<%= !i ? 'active' : ''%>"><a href="#tab-<%= add.id %>" aria-controls="tab-<%= add.id %>" role="tab" data-toggle="tab"><%= add.name %></a></li>
+                        <%
+                        });
+                    }
+                    %>
+                    <li role="presentation" class="<%= !Array.isArray(product.additions) || !product.additions.length ? 'active' : ''%>"><a href="#instructions" aria-controls="instructions" role="tab" data-toggle="tab">Special Instructions</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content text-left">
+                    <%
+                    if(Array.isArray(product.additions)) {
+                        product.additions.forEach((add, i) => {
+                        %>
+                        <div role="tabpanel" class="tab-pane <%= !i ? 'active' : ''%>" id="tab-<%= add.id %>"></div>
+                        <%
+                        });
+                    }
+                    %>
+                    <div role="tabpanel" class="tab-pane <%= !Array.isArray(product.additions) || !product.additions.length ? 'active' : ''%>" id="instructions">
+                        <textarea style="width: 100%; height: 300px; resize: none; margin-top: 15px;" class="form-control" placeholder="Special requests may be subject to additional charges"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="result">
+                    <div class="stepper-type-1" style="display: inline-block">
+                        <input type="number" id="quantity" data-zeros="true" value="1" min="1" max="20" readonly class="form-control">
+                    </div>
+                    <span class="price">$<span id="total-price"></span></span>
+                </div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="basket-button">Add to basket</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Alert box -->
+<div class="modal fade" id="alert" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <h4>Item added to basket</h4>
+            </div>
+            <div class="modal-footer">
+                <a role="button" href="/cart" class="btn btn-primary">Checkout</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/orders.js"></script>
+<% include footer.ejs %>
