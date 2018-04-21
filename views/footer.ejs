@@ -30,7 +30,7 @@
                             <h4 class="text-uppercase">Our menu</h4>
                             <ul class="list-tags offset-top-15">
                                 <% categories.forEach((category) => { %>
-                                <li class="text-gray-light"><a href="/menu-single" class="link-gray-light"><%= category.name %></a></li>
+                                <li class="text-gray-light"><a href="/menu-single/<%= category.id %>" class="link-gray-light"><%= category.name %></a></li>
                                 <% }); %>
                             </ul>
                         </div>

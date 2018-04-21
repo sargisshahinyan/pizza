@@ -70,6 +70,7 @@ setTimeout(function f() {
 			}
 			
 			$tab.append(element).data('quantity', quantity || Infinity);
+			$tab.find('select');
 			
 			function renderChildren(children, parentId, selected) {
 				let result = '';

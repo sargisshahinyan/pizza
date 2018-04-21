@@ -34,7 +34,7 @@ class functions{
 	}
 	
 	static checkId(id) {
-		return typeof id === "string" && (/^\w{24}$/.test(id) || /^\d+$/.test(id));
+		return (/^\w{24}$/.test(id) || /^\d+$/.test(id));
 	}
 }
 

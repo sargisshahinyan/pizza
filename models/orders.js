@@ -54,7 +54,7 @@ function modifyOrderResult(orders) {
 										if(!add.children[type].length) {
 											delete add.children[type];
 										} else {
-											array.push(add.children[type][0]);
+											array.push(...add.children[type]);
 										}
 									}
 									

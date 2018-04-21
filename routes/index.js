@@ -15,19 +15,45 @@ router.use(function(req, res, next) {
 	});
 });
 
-router.get('/', function(req, res) {
-	Products.getProducts().then(products => {
-		let newProducts = [];
-		
-		res.locals.categories.forEach(category => {
-			newProducts.push({
-				category: category.category,
-				products: products.filter(product => product.categoryId === category.id)
-			});
-			products = products.filter(product => product.categoryId !== category.id);
+function calculateTotal(products) {
+	products.forEach(product => {
+		product.total = product.additions.reduce(function sum(data, item) {
+			if(typeof item.children === 'object' && parseInt(item.selected, 10)) {
+				for(let type in item.children) {
+					if(!item.children.hasOwnProperty(type)) {
+						continue;
+					}
+					
+					data += item.children[type].reduce(sum, 0);
+				}
+				
+				return data;
+			}
+			
+			return parseInt(item.selected, 10) ? data + parseFloat(item.price) : data;
+		}, 0);
+	});
+	
+	return products;
+}
+
+function groupProducts(products, categories) {
+	let newProducts = [];
+	
+	categories.forEach(category => {
+		newProducts.push({
+			category: category,
+			products: products.filter(product => product.categoryId === category.id)
 		});
-		
-		products = newProducts;
+		products = products.filter(product => product.categoryId !== category.id);
+	});
+	
+	return newProducts;
+}
+
+router.get('/', function(req, res) {
+	Products.getProducts().then(calculateTotal).then(products => {
+		products = groupProducts(products, res.locals.categories);
 		
 		res.render('index', {
 			products
@@ -39,16 +65,34 @@ router.get('/contact', function(req, res) {
 	res.render('contact');
 });
 
-router.get('/menu-single', function(req, res) {
-	res.render('menu-single');
+router.get('/menu', function(req, res) {
+	Products.getProducts().then(calculateTotal).then(products => {
+		products = groupProducts(products, res.locals.categories);
+		console.log(products);
+		res.render('menu-classic', {
+			products
+		});
+	});
 });
 
-router.get('/menu-single/:id', function(req, res) {
-	res.render('menu-single');
-});
-
-router.get('/menu-classic', function(req, res) {
-	res.render('menu-classic');
+router.get('/menu/:id', function(req, res) {
+	const id = parseInt(req.params.id, 10);
+	
+	if(!functions.checkId(id)) {
+		res.status(403).send("Invalid id");
+		return;
+	}
+	
+	Products.getProducts({
+		categoryId: id
+	}).then(calculateTotal).then(products => {
+		const category = res.locals.categories.find(category => category.id === id);
+		
+		res.render('menu-single', {
+			category,
+			products
+		});
+	});
 });
 
 router.get('/item/:id', function(req, res) {
@@ -60,6 +104,8 @@ router.get('/item/:id', function(req, res) {
 	}
 	
 	Products.getProduct(id).then(product => {
+		calculateTotal([product]);
+		
 		res.render('shop-single', {
 			product
 		});

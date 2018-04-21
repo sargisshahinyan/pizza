@@ -57,19 +57,9 @@
                                 <li><a href="#" class="navbar-icon restaurant-icon-19">Menu</a>
                                     <!-- RD Navbar Dropdown-->
                                     <ul class="rd-navbar-dropdown menu-img-wrap">
-                                        <!--<li class="menu-img"><a href="/menu-single"><img src="/images/menu-food-01.png" alt="" width="88" height="60"><span>Pizzas</span></a></li>
-                                        <li class="menu-img"><a href="/menu-single"><img src="/images/menu-food-02.png" alt="" width="88" height="60"><span>Burgers</span></a></li>
-                                        <li class="menu-img"><a href="/menu-single"><img src="/images/menu-food-03.png" alt="" width="88" height="60"><span>Drinks</span></a></li>
-                                        <li class="menu-img"><a href="/menu-single"><img src="/images/menu-food-04.png" alt="" width="88" height="60"><span>Tosts</span></a></li>
-                                        <li class="menu-img"><a href="/menu-single"><img src="/images/menu-food-05.png" alt="" width="88" height="60"><span>Salads</span></a></li>
-                                        <li class="menu-img"><a href="/menu-single"><img src="/images/menu-food-06.png" alt="" width="88" height="60"><span>desserts</span></a></li>
-                                        <li class="menu-img"><a href="/menu-single"><img src="/img/appetizers.png" alt="" width="88" height="60"><span style="margin-right: -10px;">Appetizers</span></a></li>
-                                        <li class="menu-img"><a href="/menu-single"><img src="/img/pasta.png" alt="" width="88" height="60"><span>Pasta</span></a></li>
-                                        <li class="menu-img"><a href="/menu-single"><img src="/img/ajarski.png" alt="" width="88" height="60"><span>Ajarski</span></a></li>
-                                        <li class="menu-img"><a href="/menu-single"><img src="/img/spec.png" alt="" width="88" height="60"><span>Specials</span></a></li>-->
                                         <% categories.forEach(category => { %>
                                         <li class="menu-img">
-                                            <a href="/menu-single/<%= category.id %>">
+                                            <a href="/menu/<%= category.id %>">
                                                 <img src="<%= category.image %>" alt="" width="88" height="60">
                                                 <span><%= category.name %></span>
                                             </a>

@@ -9,7 +9,7 @@
                     <p class="h3 text-white">Toasts</p>
                     <ul class="breadcrumbs-custom offset-top-10">
                         <li><a href="/">Home</a></li>
-                        <li><a href="/menu-classic">Menu</a></li>
+                        <li><a href="/menu">Menu</a></li>
                         <li class="active">Toasts</li>
                     </ul>
                 </div>
@@ -22,10 +22,10 @@
             <div class="range range-xs-center">
                 <div class="cell-xs-12">
                     <div class="inset-lg-left-15 inset-lg-right-15"></div>
-                    <div class="menu-classic bg-menu-7 menu-classic-single">
-                        <h4 class="title"><a href="/menu-single" class="link-white"></a></h4>
+                    <div style="background-image: url('<%= category.bgImage %>'); background-size: 100%" class="menu-classic menu-classic-single">
+                        <h4 class="title"><a href="/menu" class="link-white"></a></h4>
                         <ul class="list-menu">
-                            <li>
+                            <!--<li>
                                 <div class="menu-item h6"><span><span>Tuna Salad</span></span><span class="price">25.00</span></div>
                                 <div class="menu-item-desc"><span>Lettuce / Tomatoes / Tuna / Grain toast</span></div>
                             </li>
@@ -56,7 +56,13 @@
                             <li>
                                 <div class="menu-item h6"><span><span>Chicken Ranch</span></span><span class="price">23.90</span></div>
                                 <div class="menu-item-desc"><span>Chicken breast / Melted cheese / Ranch dressing</span></div>
+                            </li>-->
+                            <% Array.isArray(products) && products.forEach(product => { %>
+                            <li>
+                                <div class="menu-item h6"><span><a href="/item/<%= product.id %>"><%= product.name %></a></span><span class="price"><%= product.total %></span></div>
+                                <div class="menu-item-desc"><span><%= product.description %></span></div>
                             </li>
+                            <% }) %>
                         </ul>
                     </div>
                 </div>

@@ -62,10 +62,11 @@ function getSubcategory(parentId) {
 
 class Products {
 	static getProducts(options) {
-		const keys = ['limit', 'skip'];
+		const keys = ['limit', 'skip', 'categoryId'];
 		const defaults = {
 			skip: 0,
-			limit: 20
+			limit: 20,
+			categoryId: '%'
 		};
 		
 		if(typeof options !== 'object') {
@@ -82,7 +83,8 @@ class Products {
 						description, ${table}.image, categories.name as categoryName
 						FROM ${table} JOIN categories
 						ON ${table}.categoryId = categories.id
-						ORDER BY categoryId LIMIT ?, ?`, [options['skip'], options['limit']], (err, rows) => {
+						WHERE ${table}.categoryId LIKE ?
+						ORDER BY categoryId LIMIT ?, ?`, [options['categoryId'], options['skip'], options['limit']], (err, rows) => {
 				if(err) {
 					reject(err);
 					return;

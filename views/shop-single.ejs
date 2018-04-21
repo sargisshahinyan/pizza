@@ -34,21 +34,7 @@
                     <hr class="offset-top-30 veil reveal-sm-block">
                     <div class="offset-top-15">
                         <span class="price">
-                            $<%= product.additions.reduce(function sum(data, item) {
-                                if(typeof item.children === 'object' && parseInt(item.selected, 10)) {
-                                    for(let type in item.children) {
-                                        if(!item.children.hasOwnProperty(type)) {
-                                            continue;
-                                        }
-
-                                        data += item.children[type].reduce(sum, 0);
-                                    }
-
-                                    return data;
-                                }
-
-                                return parseInt(item.selected, 10) ? data + parseFloat(item.price) : data;
-                            }, 0) %>+
+                            $<%= product.total %>+
                         </span>
                     </div>
                     <div class="offset-top-45">
