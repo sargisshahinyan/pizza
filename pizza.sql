@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2018 at 04:17 PM
+-- Generation Time: Apr 25, 2018 at 04:27 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -30,24 +30,26 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
-  `name` tinytext NOT NULL
+  `name` tinytext NOT NULL,
+  `image` tinytext NOT NULL,
+  `bgImage` tinytext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `name`) VALUES
-(1, 'Pizza'),
-(2, 'Appetizers'),
-(3, 'Salads'),
-(4, 'Sandwiches'),
-(5, 'Hamburgers'),
-(6, 'Pasta'),
-(7, 'Beverages'),
-(8, 'Dessert'),
-(9, 'Ajarski'),
-(10, 'Specials');
+INSERT INTO `categories` (`id`, `name`, `image`, `bgImage`) VALUES
+(1, 'Pizza', '/img/categories/icons/pizza.png', '/img/categories/pizza.jpg'),
+(2, 'Appetizers', '/img/categories/icons/appetizers.png', '/img/categories/appetizers.jpg'),
+(3, 'Salads', '/img/categories/icons/salads.png', '/img/categories/salads.jpg'),
+(4, 'Sandwiches', '/img/categories/icons/sandwiches.png', '/img/categories/sandwiches.jpg'),
+(5, 'Hamburgers', '/img/categories/icons/hamburgers.png', '/img/categories/hamburgers.jpg'),
+(6, 'Pasta', '/img/categories/icons/pasta.png', '/img/categories/pasta.jpg'),
+(7, 'Beverages', '/img/categories/icons/beverages.png', '/img/categories/beverages.jpg'),
+(8, 'Dessert', '/img/categories/icons/dessert.png', '/img/categories/dessert.jpg'),
+(9, 'Ajarski', '/img/categories/icons/ajarski.png', '/img/categories/ajarski.jpg'),
+(10, 'Specials', '/img/categories/icons/spec.png', '/img/categories/spec_off.png');
 
 -- --------------------------------------------------------
 
@@ -71,7 +73,8 @@ INSERT INTO `orderdetails` (`id`, `orderId`, `productId`, `quantity`, `instructi
 (1, 1, 1, 2, 'ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg   gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggv'),
 (2, 1, 2, 3, NULL),
 (3, 2, 1, 2, NULL),
-(4, 2, 2, 3, NULL);
+(4, 2, 2, 3, NULL),
+(5, 3, 1, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -98,7 +101,8 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`id`, `date`, `firstName`, `lastName`, `email`, `phone`, `address1`, `address2`, `city`, `stateId`) VALUES
 (1, '2018-04-10 17:40:11', 'Sargis', 'Shahinyan', 'shahinyan.sargis@gmail.com', '3024148567', '950 Ridge RD C25, T4557', '950 Ridge RD C25, T4557', 'Claymont', 'DE'),
-(2, '2018-04-17 10:45:56', 'Sargis', 'Shahinyan', '', '', 'Մոլդովական փ. 2/2 բնակարան 15', '', 'Երեվան', 'MA');
+(2, '2018-04-17 10:45:56', 'Sargis', 'Shahinyan', '', '', 'Մոլդովական փ. 2/2 բնակարան 15', '', 'Երեվան', 'MA'),
+(3, '2018-04-21 07:05:23', 'Sargis', 'Shahinyan', '', '', '950 Ridge RD C25, T4557', '950 Ridge RD C25, T4557', 'Claymont', 'DE');
 
 -- --------------------------------------------------------
 
@@ -126,7 +130,12 @@ INSERT INTO `ordersubcategories` (`orderDetailId`, `subcategoryId`) VALUES
 (3, 3),
 (4, 50),
 (4, 51),
-(4, 63);
+(4, 63),
+(5, 5),
+(5, 34),
+(5, 18),
+(5, 37),
+(5, 20);
 
 -- --------------------------------------------------------
 
@@ -311,7 +320,7 @@ CREATE TABLE `subcategories` (
 
 INSERT INTO `subcategories` (`id`, `name`, `parentId`, `selected`, `type`, `quantity`) VALUES
 (1, 'Choose a Size', NULL, 1, 0, 1),
-(2, 'Pizza Toppings', NULL, 1, 0, 2),
+(2, 'Pizza Toppings', NULL, 1, 0, 0),
 (3, 'Small 10\"', 1, 1, 1, 1),
 (4, 'Medium 14\"', 1, 0, 1, 1),
 (5, 'Large 16\"', 1, 0, 1, 1),
@@ -397,8 +406,8 @@ CREATE TABLE `tokens` (
 --
 
 INSERT INTO `tokens` (`userId`, `token`, `expDate`) VALUES
-(1, 'i0B1p0YV7Z7ZHWyJUJKWJ8QBz6qAp3zY3zrX65ZWvx7mEmyz2vCpYQ4k3iZi05Gx', '2018-04-24 09:29:49'),
-(1, 'PD1geztPPeMS05bpgRFzpbRexloWDlMtpPSC36z5RSMfEDn9XGpUosCU7kLqjQQr', '2018-04-23 07:45:53');
+(1, '12345', '2018-04-21 07:07:38'),
+(1, 'i0B1p0YV7Z7ZHWyJUJKWJ8QBz6qAp3zY3zrX65ZWvx7mEmyz2vCpYQ4k3iZi05Gx', '2018-04-24 09:29:49');
 
 -- --------------------------------------------------------
 
@@ -505,13 +514,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `orderdetails`
 --
 ALTER TABLE `orderdetails`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -552,7 +561,7 @@ ALTER TABLE `orders`
 -- Constraints for table `ordersubcategories`
 --
 ALTER TABLE `ordersubcategories`
-  ADD CONSTRAINT `ordersubcategories_ibfk_1` FOREIGN KEY (`orderDetailId`) REFERENCES `orderdetails` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ordersubcategories_ibfk_1` FOREIGN KEY (`orderDetailId`) REFERENCES `orderdetails` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `ordersubcategories_ibfk_2` FOREIGN KEY (`subcategoryId`) REFERENCES `subcategories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
