@@ -24,6 +24,20 @@ setTimeout(function f() {
 	let $city = $("#city");
 	let $state = $("#state");
 	
+	let hideOrder = (function() {
+		let $orderDetails = $('#order-details'),
+			$alert = $('#alert');
+		
+		return function () {
+			cookies.eraseCookie('count');
+			localStorage.clear();
+			$orderDetails.modal('hide');
+			$alert.on('hidden.bs.modal', function () {
+				location.pathname = '/';
+			}).modal('show');
+		}
+	})();
+	
 	calculate();
 	
 	function calculate() {
@@ -56,7 +70,7 @@ setTimeout(function f() {
 						.attr('href', '/item/' + product.id)
 						.end()
 					.find('.total')
-						.text('$' + sum);
+						.text('$' + sum.toFixed(2));
 			});
 		});
 		
@@ -106,13 +120,7 @@ setTimeout(function f() {
 			data: data,
 			dataType: 'json'
 		}).then(function () {
-			cookies.eraseCookie('count');
-			localStorage.clear();
-			
-			$('#order-details').modal('hide');
-			$('#alert').on('hidden.bs.modal', function () {
-				location.pathname = '/';
-			}).modal('show');
+			hideOrder();
 		}, function (error) {
 			console.log(error);
 		});
@@ -203,7 +211,8 @@ setTimeout(function f() {
 			
 			// Make a call to your server to set up the payment
 			return paypal.request.post(CREATE_URL, {
-				orders: JSON.stringify(collectData().products)
+				cart: JSON.stringify(cart),
+				products: JSON.stringify(collectData().products)
 			}).then(function(res) {
 				return res.paymentID;
 			});
@@ -220,8 +229,8 @@ setTimeout(function f() {
 					paymentID: data.paymentID,
 					payerID: data.payerID
 				})
-				.then(function (res) {
-					window.alert('Payment Complete!');
+				.then(function () {
+					hideOrder();
 				});
 		}
 	}, '#paypal-button');

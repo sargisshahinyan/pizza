@@ -35,3 +35,7 @@ class Product {
 		return sum;
 	}
 }
+
+if(typeof module === 'object') {
+	module.exports = Product;
+}
