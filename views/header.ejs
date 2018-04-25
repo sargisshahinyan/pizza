@@ -73,7 +73,7 @@
                             <!-- RD Navbar Shop-->
                             <ul class="rd-navbar-shop list-inline">
                                 <li>
-                                    <a href="tel:+1 (508) 881-2431" class="unit unit-horizontal unit-middle unit-spacing-xxs link-default">
+                                    <a href="<%= (new RegExp('mobile', 'i')).test(us) ? 'tel' : 'callto' %>:+1 (508) 881-2431" class="unit unit-horizontal unit-middle unit-spacing-xxs link-default">
                                         <div class="unit-left"><span class="icon icon-md icon-primary thin-icon-phone-call text-middle"></span></div>
                                         <div class="unit-body">
                                             <address class="contact-info"><span class="text-bold big">+1 (508) 881-2431</span></address>

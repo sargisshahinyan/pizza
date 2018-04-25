@@ -11,6 +11,8 @@ router.use(function(req, res, next) {
 	Categories.getCategories().then(categories => {
 		res.locals.categories = categories;
 		res.locals.basket = parseInt(req.cookies.count) || 0;
+		res.locals.us = req.headers['user-agent'];
+		
 		next();
 	});
 });

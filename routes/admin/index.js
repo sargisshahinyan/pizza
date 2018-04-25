@@ -20,12 +20,12 @@ router.use(function (req, res, next) {
 			orders: {
 				url: '/orders'
 			},
-			/*products: {
+			products: {
 				url: '/products'
 			},
 			categories: {
 				url: '/categories'
-			}*/
+			}
 		}
 	};
 	

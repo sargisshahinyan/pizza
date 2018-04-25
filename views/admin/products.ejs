@@ -42,9 +42,9 @@
         <div class="row">
             <div class="list-group" id="products-list">
                 <% products.forEach((product) => { %>
-                <span id="id-<%= product._id %>" data-id="<%= product._id %>" class="list-group-item row">
+                <span id="id-<%= product.id %>" data-id="<%= product.id %>" class="list-group-item row">
                     <span class="col-xs-8 list-item-title">
-                        <%= product.title %>
+                        <%= product.name %>
                     </span>
                     <span class="col-xs-4 text-right main-menu">
                         <button class="edit btn btn-success"><span class="edit glyphicon glyphicon-pencil"></span></button>

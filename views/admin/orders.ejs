@@ -38,62 +38,6 @@
             <article class="title row">Orders List</article>
             <% Array.isArray(order.products) && order.products.forEach((product, i) => { %>
             <!--<div class="orderList">
-                <div class="orderListLeft">
-                    <aside>Product</aside>
-                    <div class="product">
-                        <div>Category Name</div>
-                        <div>Name</div>
-                        <div>Price</div>
-                        <div>Summary</div>
-                    </div>
-                    <div class="value">
-                        <div><%= product.categoryName %></div>
-                        <div><%= product.name %></div>
-                        <div>
-                            <%= product.total %> $
-                        </div>
-                        <div><%= product.quantity %> x <%= product.total %> = <%= product.quantity * product.total %> $</div>
-                    </div>
-                </div>
-                <div class="orderListRight">
-                    <aside>Product details</aside>
-                    <div class="details">
-                        <div class="detailsElements">
-                            <div></div>
-                            <div class="addDetail">
-                                <div></div>
-                                <div></div>
-                            </div>
-                        </div>
-                        <div class="detailsElements">
-                            <div></div>
-                            <div class="addDetail">
-                                <div></div>
-                                <div></div>
-                            </div>
-                        </div>
-                        <div class="detailsElements">
-                            <div></div>
-                            <div class="addDetail">
-                                <div></div>
-                                <div></div>
-                            </div>
-                        </div>
-                        <div class="detailsElements">
-                            <div></div>
-                            <div class="addDetail">
-                                <div></div>
-                                <div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="specialDetails">
-                    <div>Special Instraction</div>
-                    <div><%= product.instructions || '&#45;&#45;' %></div>
-                </div>
-            </div>-->
-            <div class="orderList">
                 <article class="row">
                     <section class="col-md-5 orderListLeft">
                         <div class="row text-center">Product N<%= i + 1 %></div>
@@ -118,19 +62,59 @@
                         <div class="row text-center">Product details</div>
                         <% Array.isArray(product.additions) && product.additions.forEach(function render(add) { %>
                         <div class="row text-center orderListDetails">
-                            <!--<div class="row">-->
-                                <div class="col-md-<%= Array.isArray(add.children) ? '6' : '12'%>"><%= add.name %></div>
-                                <% if(Array.isArray(add.children)) { %>
-                                <div class="col-md-6">
-                                    <% add.children.forEach(render) %>
-                                </div>
-                                <% } %>
-                            <!--</div>-->
+                            <div class="col-md-<%= Array.isArray(add.children) ? '6' : '12'%>"><%= add.name %></div>
+                            <% if(Array.isArray(add.children)) { %>
+                            <div class="col-md-6">
+                                <% add.children.forEach(render) %>
+                            </div>
+                            <% } %>
                         </div>
                         <% }) %>
                     </section>
                 </article>
-            </div>
+            </div>-->
+            <table class="table row orderList">
+                <tr>
+                    <th class="text-center h3" style="width: calc(100% / 3)">Product N<%= i + 1 %></th>
+                    <th class="text-center h3" style="width: calc(200% / 3)">Product details</th>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="table text-center">
+                            <tr>
+                                <td class="product">Category Name</td>
+                                <td class="value"><%= product.categoryName %></td>
+                            </tr>
+                            <tr>
+                                <td class="product">Name</td>
+                                <td class="value"><%= product.name %></td>
+                            </tr>
+                            <tr>
+                                <td class="product">Price</td>
+                                <td class="value"><%= product.total %> $</td>
+                            </tr>
+                            <tr>
+                                <td class="product">Summary</td>
+                                <td class="value"><%= product.quantity %> x <%= product.total %> = <%= product.quantity * product.total %> $</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <% Array.isArray(product.additions) && product.additions.forEach(function render(add) { %>
+                        <table class="table text-center">
+                            <tr>
+                                <td style="width: 50%"><%= add.name %></td>
+                                <% if(Array.isArray(add.children)) { %>
+                                <td style="width: 50%">
+                                    <% add.children.forEach(render) %>
+                                </td>
+                                <% } %>
+                            </tr>
+                        </table>
+                        <% }); %>
+                    </td>
+                </tr>
+            </table>
             <% }); %>
         </div>
         <% }); %>

@@ -37,7 +37,7 @@ aside.menu>ul>li {
 }
 
 aside.menu>ul>li.active {
-    background-color: rgb(40, 169, 227);
+    background-color: #f9b129;
 }
 
 aside.menu>ul>li>a {
