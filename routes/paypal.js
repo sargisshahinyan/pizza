@@ -155,21 +155,6 @@ router.use('/execute', function (req, res) {
 					return;
 				}
 				
-				/*{
-					pay_id: payment.id,
-					name: payment.payer.payer_info.first_name,
-					surname: payment.payer.payer_info.last_name,
-					email: payment.payer.payer_info.email,
-					phone: payment.payer.payer_info.phone,
-					address: [
-						payment.payer.payer_info.shipping_address.line1,
-						payment.payer.payer_info.shipping_address.line2 || ''
-					],
-					city: payer.payer_info.shipping_address.city,
-					state: payer.payer_info.shipping_address.state,
-					postalCode: payer.payer_info.shipping_address.postal_code
-				}*/
-				
 				payment = JSON.parse(payment);
 				
 				let data =  {
