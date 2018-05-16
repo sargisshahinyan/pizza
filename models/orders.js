@@ -101,9 +101,10 @@ class Orders {
 		
 		return (new Promise((resolve, reject) => {
 			conn.query(`SELECT
-			 ${table}.\`id\`, \`date\`, \`firstName\`, \`lastName\`, \`email\`, \`phone\`, \`address1\`, \`address2\`, \`city\`, \`states\`.name as state
+			 ${table}.\`id\`, \`date\`, \`firstName\`, \`lastName\`, \`email\`, \`phone\`, \`address1\`, \`address2\`, \`city\`, \`states\`.name as state, payed
 			 FROM ${table}
 			 JOIN states ON states.id = ${table}.stateId
+			 ORDER BY date DESC
 			 LIMIT ?, ?`, [options['skip'], options['limit']], (err, rows) => {
 				err ? reject(err) : resolve(rows);
 			});
@@ -123,14 +124,17 @@ class Orders {
 	}
 	
 	static addOrder(order) {
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve, reject) => {debugger;
 			conn.query(`INSERT INTO ${table} SET ?`, {
 				firstName: order.firstName,
 				lastName: order.lastName,
 				address1: order.address1,
 				address2: order.address2,
+				email: order.email,
+				phone: order.phone,
 				city: order.city,
 				stateId: order.state,
+				payed: order.payed
 			}, (err, res) => {
 				if(err) {
 					reject(err);

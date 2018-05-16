@@ -37,7 +37,14 @@ router.post('/', function(req, res) {
 	let data = req.body;
 	
 	if(data.products)
-		data.products = JSON.parse(data.products);
+		try {
+			data.products = JSON.parse(data.products);
+		} catch (e) {
+			res.status(403).json({
+				"message": 'Invalid products data, JSON required'
+			});
+			return;
+		}
 	
 	const param = functions.getMissingParam({
 		keys: ['firstName', 'lastName', 'email', 'phone', 'address1', 'city', 'state', 'products'],
@@ -57,6 +64,13 @@ router.post('/', function(req, res) {
 		});
 		return;
 	}
+	
+	// Optional params
+	['payed', 'address2'].forEach(v => {
+		if(!(v in data)) {
+			data[v] = null;
+		}
+	});
 	
 	Orders.addOrder(data).then(order => {
 		res.status(201).json(order);

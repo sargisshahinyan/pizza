@@ -22,10 +22,10 @@ router.use(function (req, res, next) {
 			},
 			products: {
 				url: '/products'
-			},
+			}/*,
 			categories: {
 				url: '/categories'
-			}
+			}*/
 		}
 	};
 	
@@ -82,7 +82,8 @@ router.post('/auth', function (req, res) {
 		Users.setUserToken(user.id).then(token => {
 			res.cookie('token', token, {
 				httpOnly: true,
-				expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 5)
+				expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 5),
+				path: '/admin'
 			}).redirect(301, baseUrl + '/orders');
 		});
 	}, () => {
@@ -116,7 +117,7 @@ router.get('/orders', function (req, res) {
 				
 				order.total += product.total * product.quantity;
 			});
-		});
+		});debugger;
 		
 		res.render(`${viewPath}/orders`, {
 			orders: orders

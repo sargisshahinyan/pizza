@@ -34,45 +34,19 @@
                     <div class="col-md-4">State</div>
                     <div class="col-md-8"><%= order.state %></div>
                 </section>
+                <section>
+                    <div class="col-md-4">Payed</div>
+                    <div class="col-md-8">
+                    <% if(parseInt(order.payed)) { %>
+                        <span style="color: #00c000; font-weight: bold">Yes</span>
+                    <% } else { %>
+                        <span style="color: red; font-weight: bold">No</span>
+                    <% } %>
+                    </div>
+                </section>
             </article>
             <article class="title row">Orders List</article>
             <% Array.isArray(order.products) && order.products.forEach((product, i) => { %>
-            <!--<div class="orderList">
-                <article class="row">
-                    <section class="col-md-5 orderListLeft">
-                        <div class="row text-center">Product N<%= i + 1 %></div>
-                        <div class="row">
-                            <div class="col-md-6 product">Category Name</div>
-                            <div class="col-md-6 value"><%= product.categoryName %></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 product">Name</div>
-                            <div class="col-md-6 value"><%= product.name %></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 product">Price</div>
-                            <div class="col-md-6 value"><%= product.total %> $</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 product">Summary</div>
-                            <div class="col-md-6 value"><%= product.quantity %> x <%= product.total %> = <%= product.quantity * product.total %> $</div>
-                        </div>
-                    </section>
-                    <section class="col-md-7 orderListRight">
-                        <div class="row text-center">Product details</div>
-                        <% Array.isArray(product.additions) && product.additions.forEach(function render(add) { %>
-                        <div class="row text-center orderListDetails">
-                            <div class="col-md-<%= Array.isArray(add.children) ? '6' : '12'%>"><%= add.name %></div>
-                            <% if(Array.isArray(add.children)) { %>
-                            <div class="col-md-6">
-                                <% add.children.forEach(render) %>
-                            </div>
-                            <% } %>
-                        </div>
-                        <% }) %>
-                    </section>
-                </article>
-            </div>-->
             <table class="table row orderList">
                 <tr>
                     <th class="text-center h3" style="width: calc(100% / 3)">Product N<%= i + 1 %></th>
@@ -123,7 +97,7 @@
 <script>
     $('.col').each(function () {
     	if(!this.innerHTML.trim()) {
-		    $(this).remove();
+		    this.remove();
         }
     });
 </script>

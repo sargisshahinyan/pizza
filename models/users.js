@@ -72,7 +72,15 @@ class Users {
 		
 		return new Promise((resolve, reject) => {
 			conn.query(`SELECT id FROM ${table} WHERE username = ? AND password = ?`, [username, password], (err, rows) => {
-				err ? reject(err) : resolve(rows[0] || null);
+				if(err) {
+					console.error(err);
+					return;
+				}
+				
+				
+				rows[0] ? resolve(rows[0]) : reject({
+					'message': 'Incorrect username or password'
+				});
 			});
 		});
 	}

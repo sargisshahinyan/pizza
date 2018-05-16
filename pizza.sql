@@ -54,10 +54,10 @@ INSERT INTO `categories` (`id`, `name`, `image`, `bgImage`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orderdetails`
+-- Table structure for table `orderDetails`
 --
 
-CREATE TABLE `orderdetails` (
+CREATE TABLE `orderDetails` (
   `id` int(11) NOT NULL,
   `orderId` int(11) NOT NULL,
   `productId` int(11) NOT NULL,
@@ -66,10 +66,10 @@ CREATE TABLE `orderdetails` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `orderdetails`
+-- Dumping data for table `orderDetails`
 --
 
-INSERT INTO `orderdetails` (`id`, `orderId`, `productId`, `quantity`, `instructions`) VALUES
+INSERT INTO `orderDetails` (`id`, `orderId`, `productId`, `quantity`, `instructions`) VALUES
 (1, 1, 1, 2, 'ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg   gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggv'),
 (2, 1, 2, 3, NULL),
 (3, 2, 1, 2, NULL),
@@ -107,19 +107,19 @@ INSERT INTO `orders` (`id`, `date`, `firstName`, `lastName`, `email`, `phone`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ordersubcategories`
+-- Table structure for table `orderSubcategories`
 --
 
-CREATE TABLE `ordersubcategories` (
+CREATE TABLE `orderSubcategories` (
   `orderDetailId` int(11) NOT NULL,
   `subcategoryId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `ordersubcategories`
+-- Dumping data for table `orderSubcategories`
 --
 
-INSERT INTO `ordersubcategories` (`orderDetailId`, `subcategoryId`) VALUES
+INSERT INTO `orderSubcategories` (`orderDetailId`, `subcategoryId`) VALUES
 (1, 5),
 (1, 34),
 (1, 17),
@@ -440,9 +440,9 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `orderdetails`
+-- Indexes for table `orderDetails`
 --
-ALTER TABLE `orderdetails`
+ALTER TABLE `orderDetails`
   ADD PRIMARY KEY (`id`),
   ADD KEY `orderId` (`orderId`),
   ADD KEY `productId` (`productId`);
@@ -455,9 +455,9 @@ ALTER TABLE `orders`
   ADD KEY `stateId` (`stateId`);
 
 --
--- Indexes for table `ordersubcategories`
+-- Indexes for table `orderSubcategories`
 --
-ALTER TABLE `ordersubcategories`
+ALTER TABLE `orderSubcategories`
   ADD KEY `orderDetailsId` (`orderDetailId`),
   ADD KEY `subcategoryId` (`subcategoryId`);
 
@@ -545,11 +545,11 @@ ALTER TABLE `users`
 --
 
 --
--- Constraints for table `orderdetails`
+-- Constraints for table `orderDetails`
 --
-ALTER TABLE `orderdetails`
-  ADD CONSTRAINT `orderdetails_ibfk_2` FOREIGN KEY (`productId`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `orderdetails_ibfk_3` FOREIGN KEY (`orderId`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `orderDetails`
+  ADD CONSTRAINT `orderDetails_ibfk_2` FOREIGN KEY (`productId`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `orderDetails_ibfk_3` FOREIGN KEY (`orderId`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `orders`
@@ -558,11 +558,11 @@ ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`stateId`) REFERENCES `states` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `ordersubcategories`
+-- Constraints for table `orderSubcategories`
 --
-ALTER TABLE `ordersubcategories`
-  ADD CONSTRAINT `ordersubcategories_ibfk_1` FOREIGN KEY (`orderDetailId`) REFERENCES `orderdetails` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `ordersubcategories_ibfk_2` FOREIGN KEY (`subcategoryId`) REFERENCES `subcategories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `orderSubcategories`
+  ADD CONSTRAINT `orderSubcategories_ibfk_1` FOREIGN KEY (`orderDetailId`) REFERENCES `orderdetails` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `orderSubcategories_ibfk_2` FOREIGN KEY (`subcategoryId`) REFERENCES `subcategories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `prices`

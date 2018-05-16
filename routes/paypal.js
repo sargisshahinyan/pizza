@@ -166,7 +166,8 @@ router.use('/execute', function (req, res) {
 					address2: payment.payer.payer_info.shipping_address.line2 || '',
 					city: payment.payer.payer_info.shipping_address.city,
 					state: payment.payer.payer_info.shipping_address.state,
-					products: JSON.parse(payment.transactions[0].description)
+					products: JSON.parse(payment.transactions[0].description),
+					payed: 1
 				};
 				
 				Orders.addOrder(data).then(() => {
