@@ -24,25 +24,32 @@ function modifyProduct(product) {
 					items.unshift(item);
 					
 					if(item.parentId) {
-						getSubcategory(item.parentId).then(add);
-					} else {
-						items[items.length - 1].price = rows[i].price;
-						items.forEach((item, i) => {
-							if(tree.getNode(item.id) !== null){
-								return;
-							}
-							
-							tree.addNode(i ? tree.getNode(items[i - 1].id) : null, item);
-						});
-						items = [];
-						i++;
+						let parent = tree.getNode(parseInt(item.parentId));
 						
-						if(i === rows.length) {
-							product.additions = tree.getGroupedTree();
-							resolve();
+						if(parent) {
+							items.unshift(parent.getData());
 						} else {
-							process();
+							getSubcategory(item.parentId).then(add);
+							return;
 						}
+					}
+					
+					items[items.length - 1].price = rows[i].price;
+					items.forEach((item, i) => {
+						if(tree.getNode(item.id) !== null){
+							return;
+						}
+						
+						tree.addNode(i ? tree.getNode(items[i - 1].id) : null, item);
+					});
+					items = [];
+					i++;
+					
+					if(i === rows.length) {
+						product.additions = tree.getGroupedTree();
+						resolve();
+					} else {
+						process();
 					}
 				});
 			}
