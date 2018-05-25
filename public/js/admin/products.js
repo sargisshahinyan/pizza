@@ -180,12 +180,12 @@ $(document).ready(function () {
 		
 		return $.ajax({
 			url: '/api/categories/' + id
-		}).then(category => {return;
+		}).then(category => {
 			if(category) {
 				cat = category;
 				
 				if(Array.isArray(category.additions)) {
-					$adds.html(`<h2 class="col-sm-12">Choose an adds that included in price</h2>`);
+					$adds.html(`<h2 class="col-sm-12">Choose an adds that included in product</h2>`);
 					
 					category.additions.forEach(add => {
 						let element = `<label><h3>${add.title}</h3></label>`;
@@ -221,7 +221,7 @@ $(document).ready(function () {
 							<div data-id="${add.id}" class="col-sm-4 add">
 								${element}
 							</div>`);
-						element.find('input[type='radio']').first().prop('checked', true);
+						element.find("input[type='radio']").first().prop('checked', true);
 						$adds.append(element);
 					});
 				}

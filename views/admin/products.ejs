@@ -20,7 +20,7 @@
                     <select id="category" class="form-control" name="category" required>
                         <option value="" selected disabled>Select category</option>
                         <% categories.forEach((category) => { %>
-                            <option value="<%= category._id %>"><%= category.category %></option>
+                            <option value="<%= category.id %>"><%= category.name %></option>
                         <% }); %>
                     </select>
                 </div>

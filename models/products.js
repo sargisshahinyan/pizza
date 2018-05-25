@@ -1,71 +1,7 @@
 const table = '`products`';
-const Tree = require('../classes/Tree');
-
 const conn = require('../libs/mysql');
 
-function modifyProduct(product) {
-	let tree = new Tree();
-	let items = [];
-	let i = 0;
-	
-	return new Promise((resolve, reject) => {
-		conn.query('SELECT * FROM `prices` WHERE productId = ?', [product.id], (err, rows) => {
-			if (err) reject(err);
-			if (!rows.length) {
-				product.additions = [];
-				resolve();
-				return;
-			}
-			
-			process();
-			
-			function process() {
-				getSubcategory(rows[i].subcategoryId).then(function add(item) {
-					items.unshift(item);
-					
-					if(item.parentId) {
-						let parent = tree.getNode(parseInt(item.parentId));
-						
-						if(parent) {
-							items.unshift(parent.getData());
-						} else {
-							getSubcategory(item.parentId).then(add);
-							return;
-						}
-					}
-					
-					items[items.length - 1].price = rows[i].price;
-					items.forEach((item, i) => {
-						if(tree.getNode(item.id) !== null){
-							return;
-						}
-						
-						tree.addNode(i ? tree.getNode(items[i - 1].id) : null, item);
-					});
-					items = [];
-					i++;
-					
-					if(i === rows.length) {
-						product.additions = tree.getGroupedTree();
-						resolve();
-					} else {
-						process();
-					}
-				});
-			}
-		});
-	});
-}
-
-function getSubcategory(parentId) {
-	return new Promise((resolve, reject) => {
-		conn.query('SELECT * FROM `subcategories` WHERE id = ?', [parentId], (err, rows) => {
-			if(err) reject(err);
-			
-			resolve(rows[0]);
-		});
-	});
-}
+const Subcategories = require('./classes/Subcategories');
 
 class Products {
 	static getProducts(options) {
@@ -103,15 +39,15 @@ class Products {
 				
 				let i = 0;
 				
-				modifyProduct(rows[i]).then(function f() {
+				Subcategories.addSubcategories(rows[i], '`prices`', '`productId`').then(function f() {
 					i++;
 					
 					if(i === rows.length) {
 						resolve(rows);
 					} else {
-						modifyProduct(rows[i]).then(f);
+						Subcategories.addSubcategories(rows[i], '`prices`', '`productId`').then(f);
 					}
-				})
+				});
 			});
 		});
 	}
@@ -128,7 +64,7 @@ class Products {
 					return;
 				}
 				
-				modifyProduct(rows[0]).then(() => {
+				Subcategories.addSubcategories(rows[0], '`prices`', '`productId`').then(() => {
 					resolve(rows[0]);
 				});
 			});

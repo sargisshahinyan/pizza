@@ -1,6 +1,7 @@
 const table = '`categories`';
-
 const conn = require('../libs/mysql');
+
+const Subcategories = require('./classes/Subcategories');
 
 class Categories {
 	static getCategories(options) {
@@ -28,7 +29,11 @@ class Categories {
 	static getCategory(id) {
 		return new Promise((resolve, reject) => {
 			conn.query(`SELECT * FROM ${table} WHERE id = ?`, [id], (err, rows) => {
-				err ? reject(err) : resolve(rows[0]);
+				if(err) reject(err);
+				
+				Subcategories.addSubcategories(rows[0], '`categoryPrices`', '`categoryId`').then(() => {
+					resolve(rows[0]);
+				});
 			});
 		});
 	}
