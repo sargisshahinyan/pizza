@@ -1,4 +1,7 @@
 <% include header.ejs %>
+<style>
+    @import "/css/productDetails.css";
+</style>
 <section class=" col-xs-11 col-sm-10">
     <article class="col-md-offset-1 col-md-10 ">
         <div class="row">
@@ -24,7 +27,7 @@
                         <% }); %>
                     </select>
                 </div>
-                <div id="adds" class="form-group"></div>
+                <div id="product-details" class="form-group"></div>
                 <div class="form-group">
                     <label for="price">Price</label>
                     <input type="text" id="price" class="form-control" placeholder="Price" required>
@@ -56,6 +59,7 @@
         </div>
     </article>
 </section>
+<script src="/js/product.js"></script>
 <script src="/js/libs/photos.js"></script>
 <script src="/js/admin/products.js"></script>
 <% include footer.ejs %>

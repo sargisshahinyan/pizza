@@ -3,12 +3,12 @@
 }
 
 
-#adds {
+#product-details {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
-#adds:empty {
+#product-details:empty {
     display: none;
 }
 
@@ -17,7 +17,7 @@
     min-width: 200px;
 }
 
-#adds:after, .adds:after {
+#product-details:after, .adds:after {
     display: block;
     content: '';
     clear: both;

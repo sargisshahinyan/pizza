@@ -4,7 +4,7 @@ $(document).ready(function () {
 	const $category = $('#category');
 	const $title = $('#title');
 	const $price = $('#price');
-	const $adds = $('#adds');
+	const $productDetails = $('#product-details');
 	const $photoFile = $('#photo');
 	const $photo = $('.photo');
 	const $productsList = $('#products-list');
@@ -23,7 +23,7 @@ $(document).ready(function () {
 		renderAdds(id);
 	});
 	
-	$adds.click((event) => {
+	$productDetails.on('click', (event) => {
 		let $element = $(event.target);
 
 		if(!$element.is('input') || $element.attr('type') !== 'checkbox') {
@@ -33,7 +33,7 @@ $(document).ready(function () {
 		$element.siblings('select').attr('disabled', !$element.prop('checked'));
 	});
 	
-	$add.click(() => {
+	$add.on('click', () => {
 		let data = collectData();
 		
 		if(checkObject(data)) {
@@ -64,7 +64,7 @@ $(document).ready(function () {
 		}
 	});
 	
-	$productsList.click((event) => {
+	$productsList.on('click', (event) => {
 		const $element = $(event.target);
 		const $parent = $element.parents('.list-group-item');
 		const allowed = ['edit', 'delete'];
@@ -121,11 +121,11 @@ $(document).ready(function () {
 		}
 	});
 	
-	$cancel.click(() => {
+	$cancel.on('click', () => {
 		cancel();
 	});
 	
-	$save.click(() => {
+	$save.on('click', () => {
 		let data = collectData();
 		
 		if(checkObject(data)) {
@@ -172,7 +172,7 @@ $(document).ready(function () {
 	}
 	
 	function renderAdds(id) {
-		$adds.empty();
+		$productDetails.empty();
 		
 		if(!id) {
 			return;
@@ -185,45 +185,15 @@ $(document).ready(function () {
 				cat = category;
 				
 				if(Array.isArray(category.additions)) {
-					$adds.html(`<h2 class="col-sm-12">Choose an adds that included in product</h2>`);
+					$productDetails.html(`<h2 class="col-sm-12">Choose an adds that included in product</h2>`);
 					
-					category.additions.forEach(add => {
-						let element = `<label><h3>${add.title}</h3></label>`;
-						const type = !add.limit ? 'radio' : 'checkbox';
-						
-						if(Array.isArray(add.list)) {
-							add.list.forEach(item => {
-								element += `
-									<div class="checkbox form-group">
-										<label data-id="${item.id}" class="add">
-										    <input name="${add.id}" type="${type}">
-										    <span style="margin-right: 10px" class="title">${item.title}</span>
-								`;
-								
-								if(Array.isArray(item.list)) {
-									let innerList = ``;
-									
-									item.list.forEach(item => {
-										innerList += `<option data-id="${item.id}">${item.title}</option>`;
-									});
-									
-									element += `<select disabled class="form-control innerList" style="float: right; width: 40%;">${innerList}</select>`;
-								}
-								
-								element += `
-										</label>
-									</div>
-								`;
-							});
-						}
-						
-						element = $(`
-							<div data-id="${add.id}" class="col-sm-4 add">
-								${element}
-							</div>`);
-						element.find("input[type='radio']").first().prop('checked', true);
-						$adds.append(element);
+					category.additions.forEach((add) => {
+						$productDetails.append(`
+						<div class="col-md-4" id="tab-${add.id}"></div>
+						`);
 					});
+					
+					Product.renderAdds(category.additions);
 				}
 			}
 		}, error => console.log(error));
@@ -277,6 +247,10 @@ $(document).ready(function () {
 		}
 		
 		for(let pr in cat) {
+			if(!cat.hasOwnProperty(pr)) {
+				continue;
+			}
+			
 			if(cat[pr].id === id) {
 				cat[pr].selected = true;
 				return true;

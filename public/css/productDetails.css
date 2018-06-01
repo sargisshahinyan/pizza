@@ -1,0 +1,38 @@
+#product-details .type-2 {
+    margin-top: 10px;
+}
+
+#product-details .type-1, #product-details .type-4 {
+    position: relative;
+}
+
+#product-details .type-1>span, #product-details .type-4>span {
+    cursor: pointer;
+}
+
+#product-details .type-3 {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: black;
+    border: 1px solid orange;
+    border-radius: 4px;
+}
+
+#product-details .type-4 {
+    padding-left: 40px;
+}
+#product-details h6 {
+    padding-left: 20px;
+    margin-bottom: -20px;
+}
+
+#product-details .type-3[disabled] {
+    color: inherit;
+}
+
+@media (min-width: 997px) {
+    #product-details #result {
+        float: left;
+    }
+}
